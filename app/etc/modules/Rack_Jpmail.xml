@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<config>
+    <modules>
+        <Rack_Jpmail>
+            <active>true</active>
+            <codePool>community</codePool>
+        </Rack_Jpmail>
+    </modules>
+</config>

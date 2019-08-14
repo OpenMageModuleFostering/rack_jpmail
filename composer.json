@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Rack_Jpmail",
+    "type": "magento-module",
+    "license": "Open-Software-Lisence-v3",
+    "homepage": "",
+    "description": "This module fix email encoding for multibyte environment.",
+    "authors": [
+    {
+        "name": "rack",
+        "email": "rack990@gmail.com"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
