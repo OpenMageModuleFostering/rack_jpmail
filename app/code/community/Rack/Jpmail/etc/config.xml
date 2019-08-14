@@ -2,7 +2,7 @@
 <config>
   <modules>
     <Rack_Jpmail>
-      <version>0.1.5</version>
+      <version>0.1.6</version>
     </Rack_Jpmail>
   </modules>
   <global>

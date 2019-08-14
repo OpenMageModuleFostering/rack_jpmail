@@ -43,13 +43,14 @@ class Rack_Jpmail_Model_Email_Template extends Mage_Core_Model_Email_Template
             if($this->isPlain()) {
                 $mail->setBodyText(mb_convert_encoding($text, $textencode, 'utf-8'));
                 $subject = mb_convert_encoding($this->getProcessedTemplateSubject($variables), $textencode, 'utf-8');
+                $mail->setFrom($this->getSenderEmail(), mb_encode_mimeheader(mb_convert_encoding($this->getSenderName(), $textencode, 'utf-8')));
             } else {
                 $mail->setBodyHTML(mb_convert_encoding($text, $htmlencode, 'utf-8'));
                 $subject = mb_convert_encoding($this->getProcessedTemplateSubject($variables), $htmlencode, 'utf-8');
+                $mail->setFrom($this->getSenderEmail(), mb_encode_mimeheader(mb_convert_encoding($this->getSenderName(), $htmlencode, 'utf-8')));
             }
 
             $mail->setSubject($subject);
-            $mail->setFrom($this->getSenderEmail(), $this->getSenderName());
         
             try {
                 $mail->send(); // Zend_Mail warning..

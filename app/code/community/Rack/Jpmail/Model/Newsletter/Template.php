@@ -80,13 +80,13 @@ class Rack_Jpmail_Model_Newsletter_Template extends Mage_Newsletter_Model_Templa
         if ($this->isPlain()) {
             $mail->setBodyText(mb_encode_mimeheader(mb_convert_encoding($text, $textencode, 'utf-8')));
             $mail->setSubject(mb_encode_mimeheader(mb_convert_encoding($this->getProcessedTemplateSubject($variables), $textencode, 'utf-8')));
+            $mail->setFrom($this->getSenderEmail(), mb_encode_mimeheader(mb_convert_encoding($this->getTemplateSenderName(), $textencode, 'utf-8')));
         }
         else {
             $mail->setBodyHTML(mb_encode_mimeheader(mb_convert_encoding($text, $htmlencode, 'utf-8')));
             $mail->setSubject(mb_encode_mimeheader(mb_convert_encoding($this->getProcessedTemplateSubject($variables), $htmlencode, 'utf-8')));
+            $mail->setFrom($this->getSenderEmail(), mb_encode_mimeheader(mb_convert_encoding($this->getTemplateSenderName(), $htmlencode, 'utf-8')));
         }
-
-        $mail->setFrom($this->getTemplateSenderEmail(), $this->getTemplateSenderName());
 
         try {
             $mail->send();

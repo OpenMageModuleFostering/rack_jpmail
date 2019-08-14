@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
     <name>Rack_Jpmail</name>
-    <version>0.1.5</version>
+    <version>0.1.6</version>
     <stability>stable</stability>
     <license>Open Software Lisence v3</license>
     <channel>community</channel>
@@ -9,7 +9,8 @@
     <summary>This module fix email encoding for multibyte environment.</summary>
     <description>This module can change mail encoding.
 And it can add Return-path &amp; Reply-to.</description>
-    <notes>0.1.5 Separate Text and HTML mail encode.
+    <notes>0.1.6 Add Sender Name Encoding
+0.1.5 Separate Text and HTML mail encode.
          Add Return-Path
          Add Reply-To
 0.1.4 Fix system.xml
@@ -17,9 +18,9 @@ And it can add Return-path &amp; Reply-to.</description>
          Add Newsletter/Template.php
 0.1.2 Fix Bug.</notes>
     <authors><author><name>rack</name><user>auto-converted</user><email>rack990@gmail.com</email></author></authors>
-    <date>2010-05-14</date>
-    <time>15:43:17</time>
-    <contents><target name="magelocale"><dir name="en_US"><file name="Rack_Jpmail.csv" hash="91bcabe183e348366bfc9665ec8b4303"/></dir><dir name="ja_JP"><file name="Rack_Jpmail.csv" hash="6323d98df9db69ac9c1da46c9e122525"/></dir></target><target name="mageetc"><dir name="modules"><file name="Rack_Jpmail.xml" hash="15330a682c67f43d2510c0e72991bc53"/></dir></target><target name="magecommunity"><dir name="Rack"><dir name="Jpmail"><dir name="etc"><file name="config.xml" hash="dceb5d36b874cbcb403f224fdae4e752"/><file name="system.xml" hash="aed912d9a95c44ecdde8e8ccdfb6c44d"/></dir><dir name="Helper"><file name="Data.php" hash="184fbc5691c3478047810b827c919dc9"/></dir><dir name="Model"><dir name="Email"><file name="Template.php" hash="113264f133b5ae7116748b3d06685d59"/></dir><dir name="Newsletter"><file name="Template.php" hash="b409c7d5141b2c6ad9b57445f6cf03e4"/></dir></dir></dir></dir></target></contents>
+    <date>2010-06-19</date>
+    <time>04:22:13</time>
+    <contents><target name="magelocale"><dir name="en_US"><file name="Rack_Jpmail.csv" hash="91bcabe183e348366bfc9665ec8b4303"/></dir><dir name="ja_JP"><file name="Rack_Jpmail.csv" hash="6323d98df9db69ac9c1da46c9e122525"/></dir></target><target name="mageetc"><dir name="modules"><file name="Rack_Jpmail.xml" hash="15330a682c67f43d2510c0e72991bc53"/></dir></target><target name="magecommunity"><dir name="Rack"><dir name="Jpmail"><dir name="etc"><file name="config.xml" hash="1f6a29dca6f9c3162355e643cccb4019"/><file name="system.xml" hash="aed912d9a95c44ecdde8e8ccdfb6c44d"/></dir><dir name="Helper"><file name="Data.php" hash="184fbc5691c3478047810b827c919dc9"/></dir><dir name="Model"><dir name="Email"><file name="Template.php" hash="4eb4956e3f010997c2c270e4d0d05afc"/></dir><dir name="Newsletter"><file name="Template.php" hash="745f50e859d6118566269e5636226502"/></dir></dir></dir></dir></target></contents>
     <compatible/>
     <dependencies/>
 </package>
