@@ -6,6 +6,21 @@ class Rack_Jpmail_Model_Newsletter_Template extends Mage_Newsletter_Model_Templa
         $textencode = Mage::getStoreConfig('jpmail/jpmail/text_charset');
         $htmlencode = Mage::getStoreConfig('jpmail/jpmail/html_charset');
 
+        $setReturnPath = Mage::getStoreConfig(Mage_Core_Model_Email_Template::XML_PATH_SENDING_SET_RETURN_PATH);
+        switch ($setReturnPath) {
+            case 1:
+                $returnPathEmail = $this->getSenderEmail();
+                break;
+            case 2:
+                $returnPathEmail = Mage::getStoreConfig(Mage_Core_Model_Email_Template::XML_PATH_SENDING_RETURN_PATH_EMAIL);
+                break;
+            default:
+                $returnPathEmail = null;
+                break;
+        }
+
+        Mage::helper('jpmail')->setDefaultTransport($returnPathEmail);
+
         if (is_null($this->_mail)) {
             if($this->isPlain()) {
                 $this->_mail = new Zend_Mail($textencode);
@@ -13,20 +28,22 @@ class Rack_Jpmail_Model_Newsletter_Template extends Mage_Newsletter_Model_Templa
                 $this->_mail = new Zend_Mail($htmlencode);
             }
         } else {
-            if($this->isPlain() && ($this->_mail->getCharset() !== $textencode)) {
-                $this->_mail = new Zend_Mail($textencode);
-                $this->_mail->addBcc($this->bcc);
+            $encode = 'utf-8';
+            if ($this->isPlain() && ($this->_mail->getCharset() !== $textencode)) {
+                $encode = $textencode;
             } elseif (!$this->isPlain() && ($this->_mail->getCharset() !== $htmlencode)) {
-                $this->_mail = new Zend_Mail($htmlencode);
-                $this->_mail->addBcc($this->bcc);
+                $encode = $htmlencode;
             }
+            $this->_mail = new Zend_Mail($encode);
+            $this->_mail->addBcc($this->bcc);
+        }
+        
+        if(Mage::getStoreConfig('jpmail/jpmail/use_return_path')) {
+            $this->_mail->setReturnPath($setReturnPath);
         }
 
-        if(Mage::getStoreConfig('jpmail/jpmail/use_return_path')) {
-            $this->_mail->setReturnPath(Mage::getStoreConfig('jpmail/jpmail/return_path'));
-        }
         if(Mage::getStoreConfig('jpmail/jpmail/use_reply_to')) {
-            $this->_mail->addHeader('Reply-To', Mage::getStoreConfig('jpmail/jpmail/reply_to'));
+                $this->_mail->setReplyTo(Mage::getStoreConfig('jpmail/jpmail/reply_to'));
         }
 
         return $this->_mail;
@@ -49,12 +66,13 @@ class Rack_Jpmail_Model_Newsletter_Template extends Mage_Newsletter_Model_Templa
 
         $textencode = Mage::getStoreConfig('jpmail/jpmail/textcharset');
         $htmlencode = Mage::getStoreConfig('jpmail/jpmail/htmlcharset');
+        $nameSuffix = Mage::getStoreConfig('jpmail/jpmail/name_suffix');
 
         $email = '';
         if ($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
             $email = $subscriber->getSubscriberEmail();
             if (is_null($name) && ($subscriber->hasCustomerFirstname() || $subscriber->hasCustomerLastname()) ) {
-                $name = $subscriber->getCustomerFirstname() . ' ' . $subscriber->getCustomerLastname();
+                $name = $subscriber->getCustomerFirstname() . ' ' . $subscriber->getCustomerLastname(). $nameSuffix;
             }
         }
         else {
@@ -70,22 +88,37 @@ class Rack_Jpmail_Model_Newsletter_Template extends Mage_Newsletter_Model_Templa
 
         $mail = $this->getMail();
         if($this->isPlain()) {
-            $mail->addTo($email, mb_encode_mimeheader(mb_convert_encoding($name, $textencode, 'utf-8')));
+            $name = mb_convert_encoding($name, $textencode, 'utf-8');
+            mb_internal_encoding($textencode);
+            $mail->addTo($email, mb_encode_mimeheader($name, $textencode));
+            mb_internal_encoding('utf-8');
         } else {
-            $mail->addTo($email, mb_encode_mimeheader(mb_convert_encoding($name, $htmlencode, 'utf-8')));
+            $name = mb_convert_encoding($name, $htmlencode, 'utf-8');
+            mb_internal_encoding($htmlencode);
+            $mail->addTo($email, mb_encode_mimeheader($name, $htmlencode));
+            mb_internal_encoding('utf-8');
         }
 
         $text = $this->getProcessedTemplate($variables, true);
 
         if ($this->isPlain()) {
-            $mail->setBodyText(mb_encode_mimeheader(mb_convert_encoding($text, $textencode, 'utf-8')));
-            $mail->setSubject(mb_encode_mimeheader(mb_convert_encoding($this->getProcessedTemplateSubject($variables), $textencode, 'utf-8')));
-            $mail->setFrom($this->getSenderEmail(), mb_encode_mimeheader(mb_convert_encoding($this->getTemplateSenderName(), $textencode, 'utf-8')));
+            $mail->setBodyText(mb_convert_encoding($text, $textencode, 'utf-8'));
+            $mail->setSubject(mb_convert_encoding($this->getProcessedTemplateSubject($variables), $textencode, 'utf-8'));
+            
+            $senderName = mb_convert_encoding($$this->getTemplateSenderName(), $textencode, 'utf-8');
+            mb_internal_encoding($textencode);
+            $mail->setFrom($this->getSenderEmail(), mb_encode_mimeheader($senderName, $textencode));
+            mb_internal_encoding('utf-8');
         }
         else {
-            $mail->setBodyHTML(mb_encode_mimeheader(mb_convert_encoding($text, $htmlencode, 'utf-8')));
-            $mail->setSubject(mb_encode_mimeheader(mb_convert_encoding($this->getProcessedTemplateSubject($variables), $htmlencode, 'utf-8')));
-            $mail->setFrom($this->getSenderEmail(), mb_encode_mimeheader(mb_convert_encoding($this->getTemplateSenderName(), $htmlencode, 'utf-8')));
+            $mail->setBodyHTML(mb_convert_encoding($text, $htmlencode, 'utf-8'));
+            $mail->setSubject(mb_convert_encoding($this->getProcessedTemplateSubject($variables), $htmlencode, 'utf-8'));
+            
+            $senderName = mb_convert_encoding($$this->getTemplateSenderName(), $htmlencode, 'utf-8');
+            mb_internal_encoding($htmlencode);
+            $mail->setFrom($this->getSenderEmail(), mb_encode_mimeheader($senderName, $htmlencode));
+            mb_internal_encoding('utf-8');
+            
         }
 
         try {

@@ -1,0 +1,100 @@
+<?php $_order = $this->getOrder();
+$orderId = $_order->getId();
+$method = $_order->getPayment()->getMethod();
+
+if ($method == "paygent_cvs"){
+    $cvs_header = Mage::getModel('core/variable')
+                ->loadByCode('payment_cvs_header');
+    $value = $cvs_header->getValue(Mage_Core_Model_Variable::TYPE_TEXT);
+    echo $value . "\r\n\r\n";
+    
+    $cvsCode = explode("-", $_order->getPayment()->getCvsCompanyId());
+    $cvsName = array();
+    foreach ($cvsCode as $value) {
+        switch($value) {
+            case '00C016' : 
+                $cvsName[] = 'セイコーマート';
+                break;
+            case '00C002' : 
+                $cvsName[] = 'ローソン';
+                break;
+            case '00C004' : 
+                $cvsName[] = 'ミニストップ';
+                break;
+            case '00C006' : 
+                $cvsName[] = 'サンクス';
+                break;
+            case '00C007' : 
+                $cvsName[] = 'サークルK';
+                break;
+            case '00C014' : 
+                $cvsName[] = 'デイリーヤマザキ';
+                break;
+            case '00C001' : 
+                $cvsName[] = 'セブンイレブン';
+                break;
+            case '00C005' : 
+                $cvsName[] = 'ファミリーマート';
+                break;
+        
+        }
+        //$cvsName[] = Mage::helper('paygent')->__(Mage::getModel('paygent/source_cvstype')->getCvsType($value));
+    }
+    echo "・お支払先コンビニ名：" . join(", ", $cvsName) . "\r\n";
+    switch($_order->getPayment()->getCvsCompanyId()) {
+        case '00C016' : 
+            echo "・お支払い受付番号：";
+            break;
+        case '00C001' : 
+            echo "・払込票番号：";
+            break;
+        case '00C005' : 
+            echo "・企業コード：20020\r\n";
+            echo "・収納番号：";
+            break;
+        default       : 
+            echo "・お客様番号（オンライン決済番号）：";
+            break;
+    }
+    
+    if(in_array('00C005', $cvsCode)) {
+        list($comCode, $receiptNum) = explode('-', $_order->getPayment()->getCvsReceiptNum());
+        echo $receiptNum . "\r\n";
+    } else {
+        echo $_order->getPayment()->getCvsReceiptNum() . "\r\n";
+    }
+    
+    if(in_array('00C002', $cvsCode)) {
+        echo "・確認番号：400008\r\n";
+    }
+    
+    if ($receiptLimit = $_order->getPayment()->getPayLimitDate()) {
+        echo "・お支払期限日：" . preg_replace('/^(\d\d\d\d)(\d\d)(\d\d)$/', '$1/$2/$3', $receiptLimit) . "\r\n";
+    }
+
+    if(in_array('00C001', $cvsCode)) {
+        echo "・確認URL：". "  ".$_order->getPayment()->getCvsReceiptUrl() . "\r\n（確認URLは携帯からはご覧いただけません。PC環境でご確認ください）\r\n";
+    }
+    
+    $cvs_footer = Mage::getModel('core/variable')
+                ->loadByCode('payment_cvs_footer');
+    $value = $cvs_footer->getValue(Mage_Core_Model_Variable::TYPE_TEXT);
+    echo "\r\n" . $value . "\r\n";
+}
+
+if ($method == "paygent_atm"){
+    $atm_header = Mage::getModel('core/variable')
+                ->loadByCode('payment_payeasy_header');
+    $value = $atm_header->getValue(Mage_Core_Model_Variable::TYPE_TEXT);
+    echo $value . "\r\n\r\n";
+    
+    echo "・収納機関番号：" . $_order->getPayment()->getAtmPayCenterNumber() . "\r\n";
+    echo "・お客様番号：" . $_order->getPayment()->getAtmCustomerNumber() . "\r\n";
+    echo "・確認番号：" . $_order->getPayment()->getAtmConfNumber() . "\r\n";
+    echo "・お支払期限日：" . preg_replace('/^(\d\d\d\d)(\d\d)(\d\d)$/', '$1/$2/$3', $_order->getPayment()->getPaymentLimitDate()) . "\r\n\r\n";
+    
+    $atm_footer = Mage::getModel('core/variable')
+                ->loadByCode('payment_payeasy_footer');
+    $value = $atm_footer->getValue(Mage_Core_Model_Variable::TYPE_TEXT);
+    echo $value . "\r\n";
+}

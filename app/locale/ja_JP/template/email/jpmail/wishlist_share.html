@@ -1,0 +1,15 @@
+<!--@subject {{var customer.name}}さんの欲しい物リストを見てみませんか？ @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"var message":"Wishlist Message",
+"var items":"Wishlist Items"}
+@-->
+こんにちは、
+{{var store.getFrontendName()}}の欲しい物リストを見てみませんか？
+
+{{var message}}
+{{var items}}
+
+ありがとうございました。
+{{htmlescape var=$customer.name}}

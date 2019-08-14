@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="0.1.0">
+
+<jpmail_sales_email_order_items>
+    <block type="sales/order_email_items" name="items" template="rack_jpmail/order/items.phtml">
+        <action method="addItemRender">
+            <type>default</type>
+            <block>sales/order_email_items_order_default</block>
+            <template>rack_jpmail/order/items/order/default.phtml</template>
+        </action>
+        <action method="addItemRender">
+            <type>grouped</type>
+            <block>sales/order_email_items_order_grouped</block>
+            <template>rack_jpmail/order/items/order/default.phtml</template>
+        </action>
+        <block type="sales/order_totals" name="order_totals" template="rack_jpmail/order/totals.phtml">
+            <action method="setLabelProperties">
+                <value>colspan="3" align="right" style="padding:3px 9px"</value>
+            </action>
+            <action method="setValueProperties">
+                <value>align="right" style="padding:3px 9px"</value>
+            </action>
+            <block type="tax/sales_order_tax" name="tax" template="rack_jpmail/order/tax.phtml">
+                <action method="setIsPlaneMode">
+                    <value>1</value>
+                </action>
+            </block>
+        </block>
+    </block>
+    <block type="core/text_list" name="additional.product.info"/>
+</jpmail_sales_email_order_items>
+
+<jpmail_sales_email_order_invoice_items>
+<block type="sales/order_email_invoice_items" name="items" template="rack_jpmail/order/invoice/items.phtml">
+    <action method="addItemRender">
+        <type>default</type>
+        <block>sales/order_email_items_default</block>
+        <template>rack_jpmail/order/items/invoice/default.phtml</template>
+    </action>
+    <action method="addItemRender">
+        <type>grouped</type>
+        <block>sales/order_email_items_order_grouped</block>
+        <template>rack_jpmail/order/items/invoice/default.phtml</template>
+    </action>
+    <block type="sales/order_invoice_totals" name="invoice_totals" template="rack_jpmail/order/totals.phtml">
+        <action method="setLabelProperties">
+            <value>colspan="3" align="right" style="padding:3px 9px"</value>
+        </action>
+        <action method="setValueProperties">
+            <value>align="right" style="padding:3px 9px"</value>
+        </action>
+        <block type="tax/sales_order_tax" name="tax" template="rack_jpmail/order/tax.phtml"/>
+    </block>
+</block>
+<block type="core/text_list" name="additional.product.info"/>
+</jpmail_sales_email_order_invoice_items>
+
+<jpmail_sales_email_order_shipment_items>
+<block type="sales/order_email_shipment_items" name="items" template="rack_jpmail/order/shipment/items.phtml">
+    <action method="addItemRender">
+        <type>default</type>
+        <block>sales/order_email_items_default</block>
+        <template>rack_jpmail/order/items/shipment/default.phtml</template>
+    </action>
+</block>
+<block type="core/text_list" name="additional.product.info"/>
+</jpmail_sales_email_order_shipment_items>
+
+<jpmail_sales_email_order_creditmemo_items>
+<block type="sales/order_email_creditmemo_items" name="items" template="rack_jpmail/order/creditmemo/items.phtml">
+    <action method="addItemRender">
+        <type>default</type>
+        <block>sales/order_email_items_default</block>
+        <template>rack_jpmail/order/items/creditmemo/default.phtml</template>
+    </action>
+    <action method="addItemRender">
+        <type>grouped</type>
+        <block>sales/order_email_items_order_grouped</block>
+        <template>rack_jpmail/order/items/creditmemo/default.phtml</template>
+    </action>
+    <block type="sales/order_creditmemo_totals" name="creditmemo_totals" template="rack_jpmail/order/totals.phtml">
+        <action method="setLabelProperties">
+            <value>colspan="3" align="right" style="padding:3px 9px"</value>
+        </action>
+        <action method="setValueProperties">
+            <value>align="right" style="padding:3px 9px"</value>
+        </action>
+        <block type="tax/sales_order_tax" name="tax" template="rack_jpmail/order/tax.phtml"/>
+    </block>
+</block>
+<block type="core/text_list" name="additional.product.info"/>
+</jpmail_sales_email_order_creditmemo_items>
+</layout>

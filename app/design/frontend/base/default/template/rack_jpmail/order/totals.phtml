@@ -1,0 +1,7 @@
+<?php foreach ($this->getTotals() as $_code => $_total): ?>
+<?php if ($_total->getBlockName()): ?>
+<?php echo $this->getChildHtml($_total->getBlockName(), false); ?>
+<?php else:?>
+<?php echo sprintf('%-10s', strip_tags($_total->getLabel())) ?>: <?php echo strip_tags($this->formatValue($_total)) ?><?php echo("\r\n") ?>
+<?php endif?>
+<?php endforeach?>

@@ -1,0 +1,47 @@
+<!--@subject {{var store.getFrontendName()}}:ご注文 #{{var order.increment_id}}のクレジットメモ #{{var creditmemo.increment_id}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"htmlescape var=$billing.getName()":"Guest Customer Name (Billing)",
+"var store.getFrontendName()":"Store Name",
+"var creditmemo.increment_id":"Credit Memo Id",
+"var order.increment_id":"Order Id",
+"var order.billing_address.format('html')":"Billing Address",
+"var payment_html":"Payment Details",
+"var order.shipping_address.format('html')":"Shipping Address",
+"var order.shipping_description":"Shipping Description",
+"layout handle=\"sales_email_order_creditmemo_items\" creditmemo=$creditmemo order=$order":"Credit Memo Items Grid",
+"var comment":"Credit Memo Comment"}
+@-->
+こんにちは、{{htmlescape var=$billing.getName()}} 様
+
+{{var store.getFrontendName()}}からご注文いただきありがとうございます。
+荷物が発送されると追跡用のリンクをメールでお知らせいたします。
+ご注文に関してなにか疑問点がありましたら、{{config path='trans_email/ident_support/email'}}
+または、お電話 {{config path='general/store_information/phone'}}（月 - 金, 午前8時 - 午後5時）までお問い合わせください。
+
+ご注文の詳細は以下の通りです。ご注文いただきありがとうございます。
+
+◆ ご注文内容 ◆
+ご注文番号： {{var order.increment_id}}
+ご注文日時：  {{var order.getCreatedAtFormated('long')}}
+ご注文者： {{htmlescape var=$order.getCustomerName()}} 様
+お支払方法：  {{var order.getPayment().getMethodInstance().getTitle()}}
+
+{{layout handle="sales_email_order_payment" order=$order}}
+--------------------------------
+[ご連絡先]
+{{var order.getBillingAddress().format('text')}}
+{{depend order.getIsNotVirtual()}}
+--------------------------------
+[ご送付先]
+{{var order.getShippingAddress().format('text')}}
+{{/depend}}
+[商品]
+{{layout handle="jpmail_sales_email_order_creditmemo_items" creditmemo=$creditmemo order=$order}}
+
+{{layout handle="sales_email_order_delivery" order=$order}}
+
+{{var order.getEmailCustomerNote()}}
+────────────────────────────────────
+ありがとうございました。{{var store.getFrontendName()}}

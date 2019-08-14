@@ -1,0 +1,21 @@
+<!--@subject {{var store.getFrontendName()}}: 領収書 # {{var invoice.increment_id}} 更新 @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"htmlescape var=$billing.getName()":"Guest Customer Name",
+"var order.increment_id":"Order Id",
+"var order.getStatusLabel()":"Order Status",
+"var comment":"Invoice Comment",
+"var store.getFrontendName()":"Store Name"}
+@-->
+こんにちは、{{htmlescape var=$billing.getName()}} 様
+
+ご注文 # {{var order.increment_id}} は{{var order.getStatusLabel()}}されました。
+
+店舗よりのメッセージ：
+{{var comment}}
+
+なにかご質問がございましたら、お気軽にメールアドレス{{config path='trans_email/ident_support/email'}}
+またはお電話 {{config path='general/store_information/phone'}} でお問い合わせください。
+────────────────────────────────────
+ありがとうございました。{{var store.getFrontendName()}}

@@ -1,0 +1,27 @@
+<!--@subject アカウントを認証してください: {{var customer.name}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"store url=\"customer/account/\"":"Customer Account Url",
+"htmlescape var=$customer.name":"Customer Name",
+"var customer.email":"Customer Email",
+"store url=\"customer/account/confirm/\" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url":"Confirmation Url",
+"htmlescape var=$customer.password":"Customer password"}
+@-->
+{{htmlescape var=$customer.name}} 様
+
+ログインする前にあなたのメールアドレス{{var customer.email}} の認証をお願い致します。
+メールアドレスの認証とログインするために、以下のURLをクリックしてください。このリンクは一度のみ有効です。
+
+{{store url="customer/account/confirm/" _query_id=$customer.id _query_key=$customer.confirmation _query_back_url=$back_url}}
+
+ログインする様メッセージが表示されたら、次の値を入力してください:
+
+  メールアドレス: {{var customer.email}}
+  パスワード: {{htmlescape var=$customer.password}}
+
+アカウントに対するご質問やその他問題がありましたら、{{config path='trans_email/ident_support/email'}}、
+または電話番号 {{config path='general/store_information/phone'}} まで、お気軽にお問い合わせください。
+
+ありがとうございました。
+{{var store.getFrontendName()}}

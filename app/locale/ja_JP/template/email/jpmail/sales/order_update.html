@@ -1,0 +1,25 @@
+<!--@subject {{var store.getFrontendName()}}: ご注文 # {{var order.increment_id}} update @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"htmlescape var=$order.getCustomerName()":"Customer Name",
+"var order.increment_id":"Order Id",
+"var order.getStatusLabel()":"Order Status",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var comment":"Order Comment",
+"var store.getFrontendName()":"Store Name"}
+@-->
+こんにちは、{{htmlescape var=$order.getCustomerName()}} 様
+
+ご注文 # {{var order.increment_id}} は{{var order.getStatusLabel()}}されました。
+アカウントにログインしていただくことでご注文の状態をご確認いただけます。
+
+マイページへのログインはこちら {{store url="customer/account/"}}
+
+店舗よりのメッセージ：
+{{var comment}}
+
+なにかご質問がございましたら、お気軽にメールアドレス{{config path='trans_email/ident_support/email'}}
+またはお電話 {{config path='general/store_information/phone'}} でお問い合わせください。
+────────────────────────────────────
+ありがとうございました。{{var store.getFrontendName()}}

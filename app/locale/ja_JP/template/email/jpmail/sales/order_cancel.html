@@ -1,0 +1,51 @@
+<!--@subject {{var store.getFrontendName()}}: ご注文 # {{var order.increment_id}} @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"skin url=\"images/logo_email.gif\" _area='frontend'":"Email Logo Image",
+"htmlescape var=$order.getCustomerName()":"Customer Name",
+"var store.getFrontendName()":"Store Name",
+"store url=\"customer/account/\"":"Customer Account Url",
+"var order.increment_id":"Order Id",
+"var order.getCreatedAtFormated('long')":"Order Created At (datetime)",
+"var order.getBillingAddress().format('html')":"Billing Address",
+"var payment_html":"Payment Details",
+"var order.getShippingAddress().format('html')":"Shipping Address",
+"var order.getShippingDescription()":"Shipping Description",
+"layout handle=\"sales_email_order_items\" order=$order":"Order Items Grid",
+"var order.getEmailCustomerNote()":"Email Order Note"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+こんにちは、{{htmlescape var=$order.getCustomerName()}} 様
+
+{{var store.getFrontendName()}}からのご注文キャンセル手続きが完了しました。
+ご注文に関してなにか疑問点がありましたら、{{config path='trans_email/ident_support/email'}}
+または、お電話 {{config path='general/store_information/phone'}}（月 - 金, 午前8時 - 午後5時）までお問い合わせください。
+
+キャンセルいたしましたご注文の詳細は以下の通りです。
+
+◆ ご注文内容 ◆
+ご注文番号： {{var order.increment_id}}
+ご注文日時：  {{var order.getCreatedAtFormated('long')}}
+ご注文者： {{htmlescape var=$order.getCustomerName()}} 様
+お支払方法：  {{var order.getPayment().getMethodInstance().getTitle()}}
+
+{{layout handle="sales_email_order_payment" order=$order}}
+--------------------------------
+[ご連絡先]
+{{var order.getBillingAddress().format('text')}}
+{{depend order.getIsNotVirtual()}}
+--------------------------------
+[ご送付先]
+{{var order.getShippingAddress().format('text')}}
+{{/depend}}
+[商品]
+{{layout handle="sales_email_order_items" order=$order}}
+
+{{layout handle="sales_email_order_delivery" order=$order}}
+
+{{var order.getEmailCustomerNote()}}
+────────────────────────────────────
+ありがとうございました。{{var store.getFrontendName()}}

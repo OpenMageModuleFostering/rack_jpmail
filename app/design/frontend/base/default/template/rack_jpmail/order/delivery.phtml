@@ -1,0 +1,8 @@
+<?php $_order = $this->getOrder();
+$method = $_order->getPayment()->getMethod();
+if (($method != "paygent_cvs") && ($method != "paygent_atm")){
+$message = Mage::getModel('core/variable')
+                ->loadByCode('delivery_message');
+    $value = $message->getValue(Mage_Core_Model_Variable::TYPE_TEXT);
+    echo $value . "\r\n";
+} ?>

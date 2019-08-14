@@ -1,0 +1,16 @@
+<?php $_invoice = $this->getInvoice() ?>
+<?php $_order   = $this->getOrder() ?>
+<?php if ($_invoice && $_order): ?>
+<?php $i=0; $count = 1; foreach ($_invoice->getAllItems() as $_item): ?>
+<?php if($_item->getOrderItem()->getParentItem()) continue; else $i++; ?>
+<?php if($count > 1):?>
+----------------
+<?php endif;?>
+<?php echo $this->getItemHtml($_item) . "\r\n" ?>
+<?php $count++ ?>
+<?php $qty += $_item->getQtyOrdered()*1;?>
+<?php endforeach; ?>
+****************************************************************
+合計商品数:   <?php echo ($qty); ?>(個)
+<?php echo $this->getChildHtml('invoice_totals')?>
+<?php endif; ?>

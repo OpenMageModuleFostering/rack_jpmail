@@ -1,0 +1,33 @@
+<?php
+$_order  = $this->getOrder();
+$_source = $this->getSource();
+$_fullInfo = $_order->getFullTaxInfo();
+global $taxIter; $taxIter++;
+?>
+<?php  ?>
+<?php if ($this->displayFullSummary()): ?>
+<?php $isTop = 1; ?>
+<?php if ($_fullInfo) foreach ($_fullInfo as $info): ?>
+<?php if (isset($info['hidden']) && $info['hidden']) continue; ?>
+<?php
+$percent    = $info['percent'];
+$amount     = $info['amount'];
+$rates      = $info['rates'];
+$isFirst    = 1;
+?>
+<?php foreach ($rates as $rate): ?>
+<?php echo $this->escapeHtml($rate['title']); ?>:
+<?php if (!is_null($rate['percent'])): ?>
+(<?php echo (float)$rate['percent']; ?>%)
+<?php endif; ?>
+<?php if ($isFirst): ?>
+<?php echo strip_tags($_order->formatPrice($amount)); ?>
+<?php endif; ?>
+<?php $isFirst = 0; ?>
+<?php $isTop = 0; ?>
+<?php echo("\r\n") ?>
+<?php endforeach; ?>
+<?php echo("\r\n") ?>
+<?php endforeach; ?>
+<?php endif;?>
+<?php echo sprintf('%-10s', $this->__('Tax')); ?>:<?php echo strip_tags($_order->formatPrice($_source->getTaxAmount())) ?><?php echo("\r\n") ?>

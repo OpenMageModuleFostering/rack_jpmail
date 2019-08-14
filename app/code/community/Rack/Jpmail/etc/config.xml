@@ -1,80 +1,246 @@
 <?xml version="1.0"?>
 <config>
-  <modules>
-    <Rack_Jpmail>
-      <version>0.1.6</version>
-    </Rack_Jpmail>
-  </modules>
-  <global>
-    <models>
-      <jpmail>
-        <class>Rack_Jpmail_Model</class>
-      </jpmail>
-      <core>
-        <rewrite>
-          <email_template>Rack_Jpmail_Model_Email_Template</email_template>
-          <newsletter_template>Rack_Jpmail_Model_Newsletter_Template</newsletter_template>
-        </rewrite>
-      </core>
-    </models>
-    <helpers>
-      <jpmail>
-        <class>Rack_Jpmail_Helper</class>
-      </jpmail>
-    </helpers>
-  </global>
-  <adminhtml>
-    <translate>
-      <modules>
+    <modules>
         <Rack_Jpmail>
-          <files>
-            <default>Rack_Jpmail.csv</default>
-          </files>
+            <version>0.3.0</version>
         </Rack_Jpmail>
-      </modules>
-    </translate>
-    <acl>
-      <resources>
-        <all>
-          <title>Allow Everything</title>
-        </all>
-        <admin>
-          <children>
-            <system>
-              <children>
-                <config>
-                  <children>
-                    <jpmail>
-                      <title>Multibyte email Setting</title>
-                    </jpmail>
-                  </children>
-                </config>
-              </children>
-            </system>
-          </children>
-        </admin>
-      </resources>
-    </acl>
-    <system>
-      <children>
-        <config>
-          <children>
+    </modules>
+    <global>
+        <models>
             <jpmail>
-              <title>Multibyte email Setting</title>
+                <class>Rack_Jpmail_Model</class>
             </jpmail>
-          </children>
-        </config>
-      </children>
-    </system>
-  </adminhtml>
-  <default>
-    <jpmail>
-      <jpmail>
-        <text_charset>utf-8</text_charset>
-        <html_charset>utf-8</html_charset>
-        <use_return_path>0</use_return_path>
-        <use_reply_to>0</use_reply_to>
-      </jpmail>
-    </jpmail>
-  </default>
+            <core>
+                <rewrite>
+                    <email_template>Rack_Jpmail_Model_Email_Template</email_template>
+                    <email_queue>Rack_Jpmail_Model_Email_Queue</email_queue>
+                    <newsletter_template>Rack_Jpmail_Model_Newsletter_Template</newsletter_template>
+                    <newsletter_queue>Rack_Jpmail_Model_Newsletter_Queue</newsletter_queue>
+                </rewrite>
+            </core>
+        </models>
+        <helpers>
+            <jpmail>
+                <class>Rack_Jpmail_Helper</class>
+            </jpmail>
+        </helpers>
+        <template>
+            <email>
+                <jpmail_customer_create_account_email_template translate="label" module="customer">
+                    <label>New account(text)</label>
+                    <file>jpmail/account_new.html</file>
+                    <type>text</type>
+                </jpmail_customer_create_account_email_template>
+                <jpmail_customer_create_account_email_confirmation_template translate="label" module="customer">
+                    <label>New account confirmation key(text)</label>
+                    <file>jpmail/account_new_confirmation.html</file>
+                    <type>text</type>
+                </jpmail_customer_create_account_email_confirmation_template>
+                <jpmail_customer_create_account_email_confirmed_template translate="label" module="customer">
+                    <label>New account confirmed(text)</label>
+                    <file>jpmail/account_new_confirmed.html</file>
+                    <type>text</type>
+                </jpmail_customer_create_account_email_confirmed_template>
+                <jpmail_customer_password_forgot_email_template translate="label" module="customer">
+                    <label>Forgot Password(text)</label>
+                    <file>jpmail/account_password_reset_confirmation.html</file>
+                    <type>text</type>
+                </jpmail_customer_password_forgot_email_template>
+                <jpmail_customer_password_remind_email_template translate="label" module="customer">
+                    <label>Remind Password(text)</label>
+                    <file>jpmail/password_new.html</file>
+                    <type>text</type>
+                </jpmail_customer_password_remind_email_template>
+                <jpmail_newsletter_subscription_confirm_email_template translate="label" module="newsletter">
+                    <label>Newsletter subscription confirmation(text)</label>
+                    <file>jpmail/newsletter_subscr_confirm.html</file>
+                    <type>text</type>
+                </jpmail_newsletter_subscription_confirm_email_template>
+                <jpmail_newsletter_subscription_success_email_template translate="label" module="newsletter">
+                    <label>Newsletter subscription success(text)</label>
+                    <file>jpmail/newsletter_subscr_success.html</file>
+                    <type>text</type>
+                </jpmail_newsletter_subscription_success_email_template>
+                <jpmail_newsletter_subscription_un_email_template translate="label" module="newsletter">
+                    <label>Newsletter unsubscription success(text)</label>
+                    <file>jpmail/newsletter_unsub_success.html</file>
+                    <type>text</type>
+                </jpmail_newsletter_subscription_un_email_template>
+                <jpmail_catalog_productalert_email_stock_template translate="label" module="productalert">
+                    <label>Product stock alert(text)</label>
+                    <file>jpmail/product_stock_alert.html</file>
+                    <type>text</type>
+                </jpmail_catalog_productalert_email_stock_template>
+                <jpmail_catalog_productalert_email_price_template translate="label" module="productalert">
+                    <label>Product price alert(text)</label>
+                    <file>jpmail/product_price_alert.html</file>
+                    <type>text</type>
+                </jpmail_catalog_productalert_email_price_template>
+                <jpmail_catalog_productalert_cron_error_email_template translate="label" module="productalert">
+                    <label>Product alerts Cron error(text)</label>
+                    <file>jpmail/product_alert_cron_error.html</file>
+                    <type>text</type>
+                </jpmail_catalog_productalert_cron_error_email_template>
+                <jpmail_sales_email_order_template translate="label" module="sales">
+                    <label>New Order(text)</label>
+                    <file>jpmail/sales/order_new.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_order_template>
+                <jpmail_sales_email_order_guest_template translate="label" module="sales">
+                    <label>New Order for Guest(text)</label>
+                    <file>jpmail/sales/order_new_guest.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_order_guest_template>
+                <jpmail_sales_email_order_comment_template translate="label" module="sales">
+                    <label>Order Update(text)</label>
+                    <file>jpmail/sales/order_update.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_order_comment_template>
+                <jpmail_sales_email_order_comment_guest_template translate="label" module="sales">
+                    <label>Order Update for Guest(text)</label>
+                    <file>jpmail/sales/order_update_guest.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_order_comment_guest_template>
+                <jpmail_sales_email_invoice_template translate="label" module="sales">
+                    <label>New Invoice(text)</label>
+                    <file>jpmail/sales/invoice_new.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_invoice_template>
+                <jpmail_sales_email_invoice_guest_template translate="label" module="sales">
+                    <label>New Invoice for Guest(text)</label>
+                    <file>jpmail/sales/invoice_new_guest.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_invoice_guest_template>
+                <jpmail_sales_email_invoice_comment_template translate="label" module="sales">
+                    <label>Invoice Update(text)</label>
+                    <file>jpmail/sales/invoice_update.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_invoice_comment_template>
+                <jpmail_sales_email_invoice_comment_guest_template translate="label" module="sales">
+                    <label>Invoice Update for Guest(text)</label>
+                    <file>jpmail/sales/invoice_update_guest.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_invoice_comment_guest_template>
+                <jpmail_sales_email_creditmemo_template translate="label" module="sales">
+                    <label>New Credit Memo(text)</label>
+                    <file>jpmail/sales/creditmemo_new.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_creditmemo_template>
+                <jpmail_sales_email_creditmemo_guest_template translate="label" module="sales">
+                    <label>New Credit Memo for Guest(text)</label>
+                    <file>jpmail/sales/creditmemo_new_guest.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_creditmemo_guest_template>
+                <jpmail_sales_email_creditmemo_comment_template translate="label" module="sales">
+                    <label>Credit Memo Update(text)</label>
+                    <file>jpmail/sales/creditmemo_update.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_creditmemo_comment_template>
+                <jpmail_sales_email_creditmemo_comment_guest_template translate="label" module="sales">
+                    <label>Credit Memo Update for Guest(text)</label>
+                    <file>jpmail/sales/creditmemo_update_guest.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_creditmemo_comment_guest_template>
+                <jpmail_sales_email_shipment_template translate="label" module="sales">
+                    <label>New Shipment(text)</label>
+                    <file>jpmail/sales/shipment_new.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_shipment_template>
+                <jpmail_sales_email_shipment_guest_template translate="label" module="sales">
+                    <label>New Shipment for Guest(text)</label>
+                    <file>jpmail/sales/shipment_new_guest.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_shipment_guest_template>
+                <jpmail_sales_email_shipment_comment_template translate="label" module="sales">
+                    <label>Shipment Update(text)</label>
+                    <file>jpmail/sales/shipment_update.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_shipment_comment_template>
+                <jpmail_sales_email_shipment_comment_guest_template translate="label" module="sales">
+                    <label>Shipment Update for Guest(text)</label>
+                    <file>jpmail/sales/shipment_update_guest.html</file>
+                    <type>text</type>
+                </jpmail_sales_email_shipment_comment_guest_template>
+                <jpmail_wishlist_email_email_template translate="label" module="wishlist">
+                    <label>Share Wishlist(text)</label>
+                    <file>jpmail/wishlist_share.html</file>
+                    <type>text</type>
+                </jpmail_wishlist_email_email_template>
+            </email>
+        </template>
+    </global>
+    <adminhtml>
+        <translate>
+            <modules>
+                <Rack_Jpmail>
+                    <files>
+                        <default>Rack_Jpmail.csv</default>
+                    </files>
+                </Rack_Jpmail>
+            </modules>
+        </translate>
+        <acl>
+            <resources>
+                <all>
+                    <title>Allow Everything</title>
+                </all>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <jpmail>
+                                            <title>Multibyte email Setting</title>
+                                        </jpmail>
+                                        <extsmtp>
+                                            <title>External SMTP Setting</title>
+                                        </extsmtp>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <system>
+            <children>
+                <config>
+                    <children>
+                        <jpmail>
+                            <title>Multibyte email Setting</title>
+                        </jpmail>
+                        <extsmtp>
+                            <title>External SMTP Setting</title>
+                        </extsmtp>
+                    </children>
+                </config>
+            </children>
+        </system>
+    </adminhtml>
+    <frontend>
+        <layout>
+            <updates>
+                <jpmail>
+                    <file>jpmail.xml</file>
+                </jpmail>
+            </updates>
+        </layout>
+    </frontend>
+    <default>
+        <jpmail>
+            <jpmail>
+                <text_charset>utf-8</text_charset>
+                <html_charset>utf-8</html_charset>
+                <use_return_path>0</use_return_path>
+                <use_reply_to>0</use_reply_to>
+            </jpmail>
+        </jpmail>
+        <newsletter>
+            <delivery>
+                <count>20</count>
+            </delivery>
+        </newsletter>
+    </default>
 </config>

@@ -1,88 +1,201 @@
 <?xml version="1.0"?>
 <config>
-  <tabs>
-    <jpmail translate="label" module="jpmail">
-      <label>multibyte email setting</label>
-      <sort_order>400</sort_order>
-    </jpmail>
-  </tabs>
-  <sections>
-    <jpmail translate="label" module="jpmail">
-      <label>Multibyte Email Settings</label>
-      <tab>jpmail</tab>
-      <frontend_type>text</frontend_type>
-      <sort_order>120</sort_order>
-      <show_in_default>1</show_in_default>
-      <show_in_website>1</show_in_website>
-      <show_in_store>1</show_in_store>
-      <groups>
-        <jpmail translate="label">
-          <label>Multibyte Email Settings</label>
-          <frontend_type>text</frontend_type>
-          <sort_order>10</sort_order>
-          <show_in_default>1</show_in_default>
-          <show_in_website>1</show_in_website>
-          <show_in_store>1</show_in_store>
-          <fields>
-            <text_charset translate="label">
-              <label>text mail character set</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>10</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </text_charset>
-            <html_charset translate="label">
-              <label>html mail character set</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>10</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </html_charset>
-            <use_return_path translate="label">
-              <label>use return path</label>
-              <frontend_type>select</frontend_type>
-              <source_model>adminhtml/system_config_source_yesno</source_model>
-              <sort_order>12</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </use_return_path>
-            <return_path translate="label">
-              <label>return path</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>13</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-              <depends>
-                <use_return_path>1</use_return_path>
-              </depends>
-            </return_path>
-            <use_reply_to translate="label">
-              <label>use reply to</label>
-              <frontend_type>select</frontend_type>
-              <source_model>adminhtml/system_config_source_yesno</source_model>
-              <sort_order>14</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-            </use_reply_to>
-            <reply_to translate="label">
-              <label>reply to</label>
-              <frontend_type>text</frontend_type>
-              <sort_order>15</sort_order>
-              <show_in_default>1</show_in_default>
-              <show_in_website>1</show_in_website>
-              <show_in_store>1</show_in_store>
-              <depends>
-                <use_reply_to>1</use_reply_to>
-              </depends>
-            </reply_to>
-          </fields>
+    <tabs>
+        <jpmail translate="label" module="jpmail">
+            <label>multibyte email setting</label>
+            <sort_order>400</sort_order>
         </jpmail>
-      </groups>
-    </jpmail>
-  </sections>
+    </tabs>
+    <sections>
+        <jpmail translate="label" module="jpmail">
+            <label>Multibyte Email Settings</label>
+            <tab>jpmail</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>120</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <jpmail translate="label">
+                    <label>Multibyte Email Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <text_charset translate="label">
+                            <label>text mail character set</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </text_charset>
+                        <html_charset translate="label">
+                            <label>html mail character set</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </html_charset>
+                        <use_return_path translate="label">
+                            <label>use return path</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </use_return_path>
+                        <!--<return_path translate="label">-->
+                            <!--<label>return path</label>-->
+                            <!--<frontend_type>text</frontend_type>-->
+                            <!--<sort_order>13</sort_order>-->
+                            <!--<show_in_default>1</show_in_default>-->
+                            <!--<show_in_website>1</show_in_website>-->
+                            <!--<show_in_store>1</show_in_store>-->
+                            <!--<depends>-->
+                                <!--<use_return_path>1</use_return_path>-->
+                            <!--</depends>-->
+                        <!--</return_path>-->
+                        <use_reply_to translate="label">
+                            <label>use reply to</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </use_reply_to>
+                        <reply_to translate="label">
+                            <label>reply to</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <use_reply_to>1</use_reply_to>
+                            </depends>
+                        </reply_to>
+                        <name_suffix translate="label">
+                            <label>Name Suffix</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </name_suffix>
+                    </fields>
+                </jpmail>
+            </groups>
+        </jpmail>
+        <extsmtp translate="label" module="jpmail">
+            <label>External Smtp Settings</label>
+            <tab>jpmail</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>130</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <extsmtp translate="label">
+                    <label>External Smtp Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <use_external translate="label">
+                            <label>Use External SMTP</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </use_external>
+                        <smtp_host translate="label">
+                            <label>SMTP Host</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </smtp_host>
+                        <smtp_port translate="label">
+                            <label>SMTP Port</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </smtp_port>
+                        <smtp_secure translate="label">
+                            <label>Use Secure</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </smtp_secure>
+                        <smtp_secure_mode translate="label">
+                            <label>Secure Mode</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>jpmail/system_secure</source_model>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends>
+                                <smtp_secure>1</smtp_secure>
+                            </depends>
+                        </smtp_secure_mode>
+                        <smtp_user translate="label">
+                            <label>SMTP User</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </smtp_user>
+                        <smtp_password translate="label">
+                            <label>SMTP Password</label>
+                            <frontend_type>password</frontend_type>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </smtp_password>
+                    </fields>
+                </extsmtp>
+            </groups>
+        </extsmtp>
+        <newsletter>
+            <groups>
+                <delivery translate="label">
+                    <label>Newsletter Delivery Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <count translate="label">
+                            <label>Number of letters sending at once</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </count>
+                    </fields>
+                </delivery>
+            </groups>
+        </newsletter>
+    </sections>
 </config>

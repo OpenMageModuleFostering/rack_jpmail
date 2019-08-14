@@ -1,0 +1,17 @@
+<?php
+$_item = $this->getItem() ;
+$_order = $this->getItem()->getOrder();
+$price = 0;
+$qyt = $_item->getQtyOrdered()*1;
+$total = 0;
+echo '  '.$this->htmlEscape($_item->getName())." (".$this->htmlEscape($_item->getSku()).")";
+if ($_item->getItemOptions()){
+    foreach ($_item->getItemOptions() as $option){
+        echo "\r\n  ".$option['label'].": ".$option['value'];
+    }
+}
+$total = $this->helper('checkout')->getSubtotalInclTax($_item);
+$price = $_order->formatPriceTxt($total/$qyt);
+$price_str = sprintf("\r\n  価格 %s ×  %s(個) = %s", $price, $qyt, $_order->formatPriceTxt($total));
+echo $price_str . ' (税込)';
+?>
