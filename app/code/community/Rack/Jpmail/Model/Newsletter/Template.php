@@ -3,8 +3,8 @@ class Rack_Jpmail_Model_Newsletter_Template extends Mage_Newsletter_Model_Templa
 {
     public function getMail()
     {
-        $textencode = Mage::getStoreConfig('jpmail/jpmail/text_charset');
-        $htmlencode = Mage::getStoreConfig('jpmail/jpmail/html_charset');
+        $textencode = Mage::getStoreConfig('jpmail/jpmail/text_charset', $this->getStoreId());
+        $htmlencode = Mage::getStoreConfig('jpmail/jpmail/html_charset', $this->getStoreId());
 
         $setReturnPath = Mage::getStoreConfig(Mage_Core_Model_Email_Template::XML_PATH_SENDING_SET_RETURN_PATH);
         switch ($setReturnPath) {
@@ -38,12 +38,12 @@ class Rack_Jpmail_Model_Newsletter_Template extends Mage_Newsletter_Model_Templa
             $this->_mail->addBcc($this->bcc);
         }
         
-        if(Mage::getStoreConfig('jpmail/jpmail/use_return_path')) {
+        if(Mage::getStoreConfig('jpmail/jpmail/use_return_path', $this->getStoreId())) {
             $this->_mail->setReturnPath($setReturnPath);
         }
 
-        if(Mage::getStoreConfig('jpmail/jpmail/use_reply_to')) {
-                $this->_mail->setReplyTo(Mage::getStoreConfig('jpmail/jpmail/reply_to'));
+        if(Mage::getStoreConfig('jpmail/jpmail/use_reply_to', $this->getStoreId())) {
+                $this->_mail->setReplyTo(Mage::getStoreConfig('jpmail/jpmail/reply_to', $this->getStoreId()));
         }
 
         return $this->_mail;
@@ -64,9 +64,9 @@ class Rack_Jpmail_Model_Newsletter_Template extends Mage_Newsletter_Model_Templa
             return false;
         }
 
-        $textencode = Mage::getStoreConfig('jpmail/jpmail/textcharset');
-        $htmlencode = Mage::getStoreConfig('jpmail/jpmail/htmlcharset');
-        $nameSuffix = Mage::getStoreConfig('jpmail/jpmail/name_suffix');
+        $textencode = Mage::getStoreConfig('jpmail/jpmail/textcharset', $variables['store']);
+        $htmlencode = Mage::getStoreConfig('jpmail/jpmail/htmlcharset', $variables['store']);
+        $nameSuffix = Mage::getStoreConfig('jpmail/jpmail/name_suffix', $variables['store']);
 
         $email = '';
         if ($subscriber instanceof Mage_Newsletter_Model_Subscriber) {
@@ -83,8 +83,9 @@ class Rack_Jpmail_Model_Newsletter_Template extends Mage_Newsletter_Model_Templa
             $this->getMail()->setReturnPath($this->getTemplateSenderEmail());
         }
 
-        ini_set('SMTP', Mage::getStoreConfig('system/smtp/host'));
-        ini_set('smtp_port', Mage::getStoreConfig('system/smtp/port'));
+        ini_set('SMTP', Mage::getStoreConfig('system/smtp/host', $variables['store']));
+        ini_set('smtp_port', Mage::getStoreConfig('system/smtp/port', $variables['store']));
+        $this->setStoreId($variables['store']);
 
         $mail = $this->getMail();
         if($this->isPlain()) {

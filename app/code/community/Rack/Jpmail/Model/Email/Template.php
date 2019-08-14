@@ -24,6 +24,7 @@ class Rack_Jpmail_Model_Email_Template extends Mage_Core_Model_Email_Template {
 
         $variables['email'] = reset($emails);
         $variables['name'] = reset($names);
+        $this->setStoreId($variables['store']);
 
         $setReturnPath = Mage::getStoreConfig(Mage_Core_Model_Email_Template::XML_PATH_SENDING_SET_RETURN_PATH);
         switch ($setReturnPath) {
@@ -38,8 +39,8 @@ class Rack_Jpmail_Model_Email_Template extends Mage_Core_Model_Email_Template {
                 break;
         }
 
-        ini_set('SMTP', Mage::getStoreConfig('system/smtp/host'));
-        ini_set('smtp_port', Mage::getStoreConfig('system/smtp/port'));
+        ini_set('SMTP', Mage::getStoreConfig('system/smtp/host', $variables['store']));
+        ini_set('smtp_port', Mage::getStoreConfig('system/smtp/port', $variables['store']));
         $mail = $this->getMail();
 
         foreach ($emails as $key => $email) {
@@ -120,8 +121,8 @@ class Rack_Jpmail_Model_Email_Template extends Mage_Core_Model_Email_Template {
     }
 
     public function getMail() {
-        $textencode = Mage::getStoreConfig('jpmail/jpmail/text_charset');
-        $htmlencode = Mage::getStoreConfig('jpmail/jpmail/html_charset');
+        $textencode = Mage::getStoreConfig('jpmail/jpmail/text_charset', $this->getStoreId());
+        $htmlencode = Mage::getStoreConfig('jpmail/jpmail/html_charset', $this->getStoreId());
 
         $setReturnPath = Mage::getStoreConfig(Mage_Core_Model_Email_Template::XML_PATH_SENDING_SET_RETURN_PATH);
         switch ($setReturnPath) {
@@ -158,8 +159,8 @@ class Rack_Jpmail_Model_Email_Template extends Mage_Core_Model_Email_Template {
         if($returnPathEmail !== '' && !$this->_mail->getReturnPath()) {
             $this->_mail->setReturnPath($returnPathEmail);
         }
-        if (Mage::getStoreConfig('jpmail/jpmail/use_reply_to')) {
-            $this->setReplyTo(Mage::getStoreConfig('jpmail/jpmail/reply_to'));
+        if (Mage::getStoreConfig('jpmail/jpmail/use_reply_to', $this->getStoreId())) {
+            $this->setReplyTo(Mage::getStoreConfig('jpmail/jpmail/reply_to', $this->getStoreId()));
         }
 
         return $this->_mail;
