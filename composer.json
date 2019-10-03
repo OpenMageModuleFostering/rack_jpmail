@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Rack_Jpmail",
+    "name": "OpenMageModuleFostering\/Rack_Jpmail",
     "type": "magento-module",
     "license": "OSL-v3.0",
     "homepage": "",
     "description": "This module fix email encoding for multibyte environment",
     "authors": [
-    {
-        "name": "Hirokazu Nishi",
-        "email": "nishi@principle-works.jp"
-    }
-],
+        {
+            "name": "Hirokazu Nishi",
+            "email": "nishi@principle-works.jp"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
